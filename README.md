@@ -179,4 +179,4 @@ Feel free to submit issues and pull requests. Contributions are always welcome!
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/sioaeko/synology-photos-for-windows/blob/main/LICENSE) file for details.
