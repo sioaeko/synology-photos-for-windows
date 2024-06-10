@@ -16,8 +16,8 @@ This project creates a simple Electron-based application to run Synology Photos 
 1. **Clone the repository**:
 
     ```bash
-    git clone https://github.com/your-username/synology-photos-electron.git
-    cd synology-photos-electron
+    git clone https://github.com/sioaeko/synology-photos-for-windows.git
+    cd synology-photos-for-windows
     ```
 
 2. **Install dependencies**:
@@ -41,6 +41,48 @@ This project creates a simple Electron-based application to run Synology Photos 
     ```bash
     npm start
     ```
+
+## Building Executable
+
+To package the Electron app into an executable (.exe) file, follow these steps:
+
+1. **Install `electron-packager`**:
+
+    ```bash
+    npm install electron-packager --save-dev
+    ```
+
+2. **Update `package.json`**:
+
+    Add the following script to the `scripts` section in your `package.json`:
+
+    ```json
+    {
+      "name": "synology-photos-electron",
+      "version": "1.0.0",
+      "main": "main.js",
+      "scripts": {
+        "start": "electron .",
+        "package": "electron-packager . synology-photos-electron --platform=win32 --arch=x64 --out=dist --overwrite"
+      },
+      "devDependencies": {
+        "electron": "^13.0.0",
+        "electron-packager": "^15.0.0"
+      }
+    }
+    ```
+
+3. **Package the app**:
+
+    Run the following command to package the app:
+
+    ```bash
+    npm run package
+    ```
+
+4. **Locate the executable**:
+
+    The executable file will be located in the `dist` folder. Navigate to `dist/synology-photos-electron-win32-x64` to find `synology-photos-electron.exe`.
 
 ## Project Structure
 
