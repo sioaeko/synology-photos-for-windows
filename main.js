@@ -4,9 +4,13 @@ const path = require('path');
 let mainWindow;
 
 function createWindow () {
+    let windowSettings = getWindowSettings();
+
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: windowSettings.width || 800,
+        height: windowSettings.height || 600,
+        x: windowSettings.x,
+        y: windowSettings.y,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
@@ -53,5 +57,9 @@ function saveWindowSettings() {
         y: windowBounds.y
     };
 
-    mainWindow.webContents.executeJavaScript(`localStorage.setItem('windowSettings', '${JSON.stringify(windowSettings)}');`);
+    mainWindow.webContents.executeJavaScript(`electron.saveWindowSettings(${JSON.stringify(windowSettings)});`);
+}
+
+function getWindowSettings() {
+    return mainWindow.webContents.executeJavaScript('electron.getWindowSettings();');
 }
