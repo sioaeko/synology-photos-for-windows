@@ -1,8 +1,10 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, session } = require('electron');
 const path = require('path');
 
+let mainWindow;
+
 function createWindow () {
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
@@ -10,7 +12,20 @@ function createWindow () {
         }
     });
 
-    mainWindow.loadURL('http://<YOUR_SYNOLOGY_PHOTOS_URL>');
+    const loginURL = 'http://<YOUR_SYNOLOGY_PHOTOS_URL>/#login'; // Synology Photos 로그인 URL
+    const username = 'your_username'; // Synology 사용자 이름
+    const password = 'your_password'; // Synology 비밀번호
+
+    mainWindow.loadURL(`${loginURL}?username=${username}&password=${password}`);
+
+    // 창 크기 및 위치 저장
+    mainWindow.on('resize', saveWindowSettings);
+    mainWindow.on('move', saveWindowSettings);
+
+    // 창 닫기 이벤트
+    mainWindow.on('closed', function () {
+        mainWindow = null;
+    });
 }
 
 app.on('ready', createWindow);
@@ -22,7 +37,21 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
+    if (mainWindow === null) {
         createWindow();
     }
 });
+
+function saveWindowSettings() {
+    if (!mainWindow) return;
+
+    let windowBounds = mainWindow.getBounds();
+    let windowSettings = {
+        width: windowBounds.width,
+        height: windowBounds.height,
+        x: windowBounds.x,
+        y: windowBounds.y
+    };
+
+    mainWindow.webContents.executeJavaScript(`localStorage.setItem('windowSettings', '${JSON.stringify(windowSettings)}');`);
+}
