@@ -2,6 +2,11 @@
 
 This project creates a simple Electron-based application to run Synology Photos as a Windows program. The app includes features for auto-login and saving window size and position.
 
+![GitHub](https://img.shields.io/github/license/sioaeko/synology-photos-for-windows)
+![GitHub stars](https://img.shields.io/github/stars/sioaeko/synology-photos-for-windows)
+![GitHub forks](https://img.shields.io/github/forks/sioaeko/synology-photos-for-windows)
+
+
 ## Features
 
 - **Auto-login**: Automatically log in to Synology Photos.
